@@ -39,15 +39,15 @@ async function main() {
     // Usuarios
     // ================
     await runAsync(
-      `INSERT INTO usuarios (nombre, correo, rol)
-       VALUES (?, ?, ?)`,
-      ["Productor 1", "productor1@example.com", "productor"]
+      `INSERT INTO usuarios (nombre, correo, rol, password_hash)
+       VALUES (?, ?, ?, ?)`,
+      ["Productor 1", "productor1@example.com", "productor", "hashedpassword1"]
     );
 
     await runAsync(
-      `INSERT INTO usuarios (nombre, correo, rol)
-       VALUES (?, ?, ?)`,
-      ["Consumidor 1", "consumidor1@example.com", "consumidor"]
+      `INSERT INTO usuarios (nombre, correo, rol, password_hash)
+       VALUES (?, ?, ?, ?)`,
+      ["Consumidor 1", "consumidor1@example.com", "consumidor", "hashedpassword2"]
     );
 
     const productor = await getAsync<{ id_usuario: number }>(
@@ -78,35 +78,38 @@ async function main() {
     // Productos
     // ================
     await runAsync(
-      `INSERT INTO productos (id_finca, nombre, descripcion, foto_url)
-       VALUES (?, ?, ?, ?)`,
+      `INSERT INTO productos (id_finca, nombre, descripcion, foto_url, precio)
+       VALUES (?, ?, ?, ?, ?)`,
       [
         finca.id_finca,
         "Café Especial 1kg",
         "Café de origen, tueste medio.",
         "/images/cafe-1kg.jpg",
+        15000,
       ]
     );
 
     await runAsync(
-      `INSERT INTO productos (id_finca, nombre, descripcion, foto_url)
-       VALUES (?, ?, ?, ?)`,
+      `INSERT INTO productos (id_finca, nombre, descripcion, foto_url, precio)
+       VALUES (?, ?, ?, ?, ?)`,
       [
         finca.id_finca,
         "Café Molido 500g",
         "Ideal para prensa francesa.",
         "/images/cafe-500g.jpg",
+        30000,
       ]
     );
 
     await runAsync(
-      `INSERT INTO productos (id_finca, nombre, descripcion, foto_url)
-       VALUES (?, ?, ?, ?)`,
+      `INSERT INTO productos (id_finca, nombre, descripcion, foto_url, precio)
+       VALUES (?, ?, ?, ?, ?)`,
       [
         finca.id_finca,
         "Café en grano 250g",
         "Para espresso.",
         "/images/cafe-250g.jpg",
+        20000,
       ]
     );
 

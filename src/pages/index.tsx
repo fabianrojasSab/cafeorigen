@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
-import Link from "next/link";
-import { Facebook, Youtube } from "lucide-react";
-import { BsWhatsapp } from 'react-icons/bs';
+import { CoffeeCard } from "@/components/card";
+import { Header } from "@/components/header";
+import { ProductoRow, getProductos } from "@/lib/db/queries/products";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,76 +14,58 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function Home() {
+export default function Home({ products }: { products: ProductoRow[]}) {
   return (
     <div
-      className={`${geistSans.className} ${geistMono.className} flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black`}
+      className={`${geistSans.className} ${geistMono.className} flex min-h-screen items-center justify-center bg-background font-sans dark:bg-black`}
     >
       <main>
-        {/* componente menubar */}
-        <div className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-            <div className="font-bold max-sm:text-xs hidden sm:block">
-              Café Origen - Tienda en Línea
-            </div>
-            <div className="ml-auto accent text-white px-4 py-2 rounded">
-              <div className="flex items-center justify-center gap-6">
-                  <a
-                  href="https://m.facebook.com/people/Pijaos-Salud-Eps-Indigena/100072430669698/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/80 hover:text-foreground transition-colors"
-                  aria-label="Facebook"
-                  >
-                  <Facebook className="w-5 h-5" />
-                  </a>
-
-                  <a
-                  href="https://wa.me/573102133504"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/80 hover:text-foreground transition-colors"
-                  aria-label="WhatsApp"
-                  >
-                  <BsWhatsapp className="w-5 h-5" />
-                  </a>
-
-                  <a
-                  href="https://www.youtube.com/channel/UCwblJFABwBn1NHvAhgxPCIw"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/80 hover:text-foreground transition-colors"
-                  aria-label="YouTube"
-                  >
-                  <Youtube className="w-5 h-5" />
-                  </a>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2  hover:animate-vibrate animate-in fade-in slide-in-from-right-8 duration-800">
-              <Link
-                href="/shop/cart/page"
-                className="mr-4 inline-flex items-center rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-              >
-                Iniciar sesion
-              </Link>
-              <Link
-                href="/shop/cart/page"
-                className="mr-4 inline-flex items-center rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-              >
-                Registrarse
-              </Link>
-            </div>
-        </div>
+        {/* barra de navegacion principal */}
+        <Header/>
 
         {/* contenido principal */}
-        <div className="flex h-screen w-screen">
-          <div className="flex flex-1 items-center justify-center p-6">
-            <h1 className="text-3xl font-bold text-zinc-800 dark:text-zinc-100">
-              Contenido Principal
-            </h1>
+        <div className="flex h-screen w-screen items-center flex-col">
+          <div className="flex w-full h-1/2 justify-end fondo">
+              <Image
+                src="/el-cafe-adulto-cosechando.jpg"
+                alt="Logo"
+                width={800}
+                height={800}
+                className="absolute -top-4 -right-4 brightness-75 "
+              />
+            <div className="absolute top-1/3 left-16 z-10 text-primary text-4xl font-bold leading-tight">
+              El café que deseas,<br />del origen más puro.
+            </div>
+            <div className="absolute bottom-10 left-16 z-10 text-primary text-sm">
+              Descubre nuestros granos seleccionados y vive la experiencia del café auténtico.
+            </div>
+          </div>
+
+          {/* Tarjetas de cafe */}
+          <div className="flex bg-background justify-center items-center gap-4 w-full h-1/2 p-2">
+            {products.map((p) => (
+              <CoffeeCard
+                key={p.id_producto}
+                variant="vertical"
+                name={p.nombre}
+                description={p.descripcion}
+                price={p.precio}
+                imageSrc="/cafe-ejemplo.jpg"
+                buttonHref="/shop/cart"
+              />
+            ))}
+
           </div>
         </div>
       </main>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const products = await getProductos();
+
+  return {
+    props: { products }
+  };
 }

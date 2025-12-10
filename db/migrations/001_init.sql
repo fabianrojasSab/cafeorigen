@@ -4,7 +4,8 @@ CREATE TABLE usuarios (
   id_usuario     INTEGER PRIMARY KEY AUTOINCREMENT,
   nombre         VARCHAR(100) NOT NULL,
   correo         VARCHAR(100) NOT NULL UNIQUE,
-  rol            VARCHAR(20)  NOT NULL
+  rol            VARCHAR(20)  NOT NULL,
+  password_hash  VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE fincas (
@@ -24,6 +25,7 @@ CREATE TABLE productos (
   nombre      VARCHAR(100) NOT NULL,
   descripcion TEXT,
   foto_url    VARCHAR(255),
+  precio      REAL,
 
   FOREIGN KEY (id_finca) REFERENCES fincas (id_finca)
     ON DELETE CASCADE
