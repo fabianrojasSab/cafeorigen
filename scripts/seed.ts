@@ -1,4 +1,3 @@
-// scripts/seed.ts
 import sqlite3 from "sqlite3";
 import path from "path";
 
@@ -28,25 +27,22 @@ async function main() {
   try {
     console.log("Usando base de datos en:", dbPath);
 
-    // Limpiamos tablas (opcional, según necesidad)
     await runAsync("DELETE FROM comentarios");
     await runAsync("DELETE FROM pedidos");
     await runAsync("DELETE FROM productos");
     await runAsync("DELETE FROM fincas");
     await runAsync("DELETE FROM usuarios");
 
-    // ================
     // Usuarios
-    // ================
     await runAsync(
       `INSERT INTO usuarios (nombre, correo, rol, password_hash)
-       VALUES (?, ?, ?, ?)`,
+        VALUES (?, ?, ?, ?)`,
       ["Productor 1", "productor1@example.com", "productor", "hashedpassword1"]
     );
 
     await runAsync(
       `INSERT INTO usuarios (nombre, correo, rol, password_hash)
-       VALUES (?, ?, ?, ?)`,
+        VALUES (?, ?, ?, ?)`,
       ["Consumidor 1", "consumidor1@example.com", "consumidor", "hashedpassword2"]
     );
 
@@ -60,12 +56,10 @@ async function main() {
       ["consumidor1@example.com"]
     );
 
-    // ================
     // Finca
-    // ================
     await runAsync(
       `INSERT INTO fincas (id_usuario, nombre, ubicacion)
-       VALUES (?, ?, ?)`,
+        VALUES (?, ?, ?)`,
       [productor.id_usuario, "Finca El Descanso", "Vereda La Esperanza"]
     );
 
@@ -74,12 +68,10 @@ async function main() {
       ["Finca El Descanso"]
     );
 
-    // ================
     // Productos
-    // ================
     await runAsync(
       `INSERT INTO productos (id_finca, nombre, descripcion, foto_url, precio)
-       VALUES (?, ?, ?, ?, ?)`,
+        VALUES (?, ?, ?, ?, ?)`,
       [
         finca.id_finca,
         "Café Especial 1kg",
@@ -91,7 +83,7 @@ async function main() {
 
     await runAsync(
       `INSERT INTO productos (id_finca, nombre, descripcion, foto_url, precio)
-       VALUES (?, ?, ?, ?, ?)`,
+        VALUES (?, ?, ?, ?, ?)`,
       [
         finca.id_finca,
         "Café Molido 500g",
@@ -103,7 +95,7 @@ async function main() {
 
     await runAsync(
       `INSERT INTO productos (id_finca, nombre, descripcion, foto_url, precio)
-       VALUES (?, ?, ?, ?, ?)`,
+        VALUES (?, ?, ?, ?, ?)`,
       [
         finca.id_finca,
         "Café en grano 250g",
@@ -123,29 +115,25 @@ async function main() {
       ["Café Molido 500g"]
     );
 
-    // ================
     // Pedidos
-    // ================
     const hoy = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
 
     await runAsync(
       `INSERT INTO pedidos (id_producto, id_consumidor, fecha, estado)
-       VALUES (?, ?, ?, ?)`,
+        VALUES (?, ?, ?, ?)`,
       [producto1.id_producto, consumidor.id_usuario, hoy, "PENDIENTE"]
     );
 
     await runAsync(
       `INSERT INTO pedidos (id_producto, id_consumidor, fecha, estado)
-       VALUES (?, ?, ?, ?)`,
+        VALUES (?, ?, ?, ?)`,
       [producto2.id_producto, consumidor.id_usuario, hoy, "ENVIADO"]
     );
 
-    // ================
     // Comentarios
-    // ================
     await runAsync(
       `INSERT INTO comentarios (id_producto, id_usuario, texto, calificacion)
-       VALUES (?, ?, ?, ?)`,
+        VALUES (?, ?, ?, ?)`,
       [
         producto1.id_producto,
         consumidor.id_usuario,
@@ -156,7 +144,7 @@ async function main() {
 
     await runAsync(
       `INSERT INTO comentarios (id_producto, id_usuario, texto, calificacion)
-       VALUES (?, ?, ?, ?)`,
+        VALUES (?, ?, ?, ?)`,
       [
         producto2.id_producto,
         consumidor.id_usuario,

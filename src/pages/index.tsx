@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { CoffeeCard } from "@/components/card";
 import { Header } from "@/components/header";
 import { ProductoRow, getProductos } from "@/lib/db/queries/products";
+import Head from 'next/head'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

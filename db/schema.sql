@@ -1,20 +1,15 @@
 PRAGMA foreign_keys = ON;
 
--- ======================
 -- Tabla: Usuarios
--- ======================
 CREATE TABLE IF NOT EXISTS usuarios (
   id_usuario     INTEGER PRIMARY KEY AUTOINCREMENT,
   nombre         VARCHAR(100) NOT NULL,
   correo         VARCHAR(100) NOT NULL UNIQUE,
   rol            VARCHAR(20)  NOT NULL,
   password_hash  VARCHAR(255) NOT NULL,
-  -- opcional: CHECK(rol IN ('productor','consumidor','admin'))
 );
 
--- ======================
 -- Tabla: Fincas
--- ======================
 CREATE TABLE IF NOT EXISTS fincas (
   id_finca    INTEGER PRIMARY KEY AUTOINCREMENT,
   id_usuario  INTEGER NOT NULL,
@@ -26,9 +21,7 @@ CREATE TABLE IF NOT EXISTS fincas (
     ON UPDATE CASCADE
 );
 
--- ======================
 -- Tabla: Productos
--- ======================
 CREATE TABLE IF NOT EXISTS productos (
   id_producto INTEGER PRIMARY KEY AUTOINCREMENT,
   id_finca    INTEGER NOT NULL,
@@ -42,9 +35,7 @@ CREATE TABLE IF NOT EXISTS productos (
     ON UPDATE CASCADE
 );
 
--- ======================
 -- Tabla: Pedidos
--- ======================
 CREATE TABLE IF NOT EXISTS pedidos (
   id_pedido    INTEGER PRIMARY KEY AUTOINCREMENT,
   id_producto  INTEGER NOT NULL,
@@ -61,9 +52,7 @@ CREATE TABLE IF NOT EXISTS pedidos (
     ON UPDATE CASCADE
 );
 
--- ======================
 -- Tabla: Comentarios
--- ======================
 CREATE TABLE IF NOT EXISTS comentarios (
   id_comentario INTEGER PRIMARY KEY AUTOINCREMENT,
   id_producto   INTEGER NOT NULL,

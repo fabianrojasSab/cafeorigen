@@ -1,4 +1,3 @@
-// src/lib/db/queries/users.ts
 import { getDb } from "../index";
 import bcrypt from "bcryptjs";
 

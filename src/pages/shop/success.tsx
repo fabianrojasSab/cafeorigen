@@ -1,6 +1,5 @@
 import { Header } from "@/components/header";
 import { Button } from "@/components/buttons";
-import Image from "next/image";
 import { useEffect } from "react";
 
 export default function PurchaseSuccess() {
@@ -16,16 +15,6 @@ export default function PurchaseSuccess() {
             <Header />
             <div className="min-h-screen bg-zinc-50 flex flex-col items-center justify-center px-4">
                 <div className="bg-white shadow-lg rounded-2xl p-8 max-w-lg w-full text-center border border-zinc-200 animate-in fade-in zoom-in duration-700">
-                    {/* Ícono de éxito */}
-                    <div className="flex justify-center mb-6">
-                        <Image
-                        src="/success-check.png" // puedes poner un icono tuyo o un SVG
-                        width={100}
-                        height={100}
-                        alt="Compra exitosa"
-                        className="animate-bounce-slow"
-                        />
-                    </div>
 
                     <h1 className="text-3xl font-bold text-green-600 mb-2">
                         ¡Compra exitosa!
@@ -45,7 +34,7 @@ export default function PurchaseSuccess() {
                         Ir al inicio
                         </Button>
 
-                        <Button href="/shop/orders" className="px-8">
+                        <Button href="/" className="px-8">
                         Ver mis pedidos
                         </Button>
                     </div>

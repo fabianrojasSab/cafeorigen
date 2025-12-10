@@ -1,4 +1,3 @@
-// scripts/migrate.ts
 import fs from "fs";
 import path from "path";
 import sqlite3 from "sqlite3";
@@ -12,7 +11,7 @@ async function applyMigrations() {
   const files = fs
     .readdirSync(migrationsDir)
     .filter((f) => f.endsWith(".sql"))
-    .sort(); // 001, 002, ...
+    .sort(); //permite que se ejecute en orden alfabetico
 
   for (const file of files) {
     console.log("Ejecutando migración:", file);

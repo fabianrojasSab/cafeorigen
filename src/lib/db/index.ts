@@ -7,9 +7,6 @@ export function getDb() {
   if (!db) {
     const dbPath = path.join(process.cwd(), "db", "ecommerce.sqlite");
 
-    // Opcional: activar modo verbose para ver logs en consola
-    // sqlite3.verbose();
-
     db = new sqlite3.Database(dbPath, (err) => {
       if (err) {
         console.error("Error abriendo la base de datos SQLite:", err);
